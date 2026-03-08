@@ -147,9 +147,17 @@ void OnTick()
          DeveCriarGradiente = true;
         }
 
+      //
+      //
       if((PosicaoAntiga > 0) && (Position() > PosicaoAntiga))
         {
          printf("Nível de gradiente comprado com %.2f contratos", QtdContratosEntrada);
+         DeveAtualizarAlvoStop = true;
+        }
+
+      if((PosicaoAntiga < 0) && (Position() < PosicaoAntiga))
+        {
+         printf("Nível de gradiente vendido com %.2f contratos", QtdContratosEntrada);
          DeveAtualizarAlvoStop = true;
         }
 
@@ -162,9 +170,9 @@ void OnTick()
      {
       if(IsSold())
         {
-         //double PrecoStop = GetAveragePrice() + (PerdaFinanceira * TamanhoTick) / SellPosition();
-         //double PrecoAlvo = GetAveragePrice() - (AlvoFinanceiro * TamanhoTick) / SellPosition();
-         //AtualizaAlvoeStop(PrecoStop, PrecoAlvo, "ordem de venda");
+         double PrecoStop = GetAveragePrice() + (PerdaFinanceira * TamanhoTick) / SellPosition();
+         double PrecoAlvo = GetAveragePrice() - (AlvoFinanceiro * TamanhoTick) / SellPosition();
+         AtualizaAlvoeStop(PrecoStop, PrecoAlvo, "ordem de venda");
         }
       //
       if(IsBought())
@@ -216,10 +224,10 @@ if(DeveCriarGradiente)
         {
          PrecoVendaOriginal = iLow(_Symbol, _Period, 1);
          AberturaAntiga = iOpen(_Symbol, _Period, 1);
-         // if(iClose(_Symbol, _Period, 0) >= PrecoVendaOriginal)
-         //   SellStop(QtdContratosEntrada, PrecoVendaOriginal, "SELL STOP de entrada de venda");
-         // else
-         //    SellLimit(QtdContratosEntrada, PrecoVendaOriginal, "SELL LIMIT de entrada de venda");
+         if(iClose(_Symbol, _Period, 0) >= PrecoVendaOriginal)
+            SellStop(QtdContratosEntrada, PrecoVendaOriginal, "SELL STOP de entrada de venda");
+          else
+             SellLimit(QtdContratosEntrada, PrecoVendaOriginal, "SELL LIMIT de entrada de venda");
         }
 
       if(SinalDeCompra())

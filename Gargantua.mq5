@@ -130,6 +130,7 @@ void OnTick()
       if((PosicaoAntiga != 0) && (Position() == 0))
         {
          printf("Posição encerrada");
+         CancelPendingOrders();
         }
 
       if((PosicaoAntiga == 0) && (Position() < 0))

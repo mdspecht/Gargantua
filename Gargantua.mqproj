@@ -15,11 +15,6 @@
   "files":
   [
     {
-      "path":"GARGANTUA.mq5",
-      "compile":true,
-      "relative_to_project":true
-    },
-    {
       "path":"Sinal.mqh",
       "compile":false,
       "relative_to_project":true
@@ -83,6 +78,11 @@
       "path":"MQL5\\Include\\Coloracao.mqh",
       "compile":false,
       "relative_to_project":false
+    },
+    {
+      "path":"Gargantua.mq5",
+      "compile":true,
+      "relative_to_project":true
     }
   ]
 }
